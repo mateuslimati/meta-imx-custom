@@ -1,0 +1,36 @@
+From 4c67a7c12e4da3d5efe80a397043181468d77ac0 Mon Sep 17 00:00:00 2001
+From: Mateus Alves <mateuslima.ti@gmail.com>
+Date: Mon, 6 May 2024 22:21:59 -0300
+Subject: [PATCH] changed default emmc.
+
+---
+ include/configs/pico-imx7d.h | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/include/configs/pico-imx7d.h b/include/configs/pico-imx7d.h
+index 7fbf2c3f55..6214cd71f2 100644
+--- a/include/configs/pico-imx7d.h
++++ b/include/configs/pico-imx7d.h
+@@ -21,7 +21,7 @@
+ #define CONFIG_MXC_UART_BASE		UART5_IPS_BASE_ADDR
+ 
+ /* MMC Config */
+-#define CONFIG_SYS_FSL_ESDHC_ADDR	0
++#define CONFIG_SYS_FSL_ESDHC_ADDR	2
+ 
+ #define CONFIG_DFU_ENV_SETTINGS \
+ 	"dfu_alt_info=" \
+@@ -86,11 +86,11 @@
+ 		"uuid_disk=${uuid_gpt_disk};" \
+ 		"name=rootfs,size=0,uuid=${uuid_gpt_rootfs}\0" \
+ 	"fastboot_partition_alias_system=rootfs\0" \
+-	"setup_emmc=mmc dev 0; gpt write mmc 0 $partitions; reset;\0" \
++	"setup_emmc=mmc dev 2; gpt write mmc 2 $partitions; reset;\0" \
+ 	PICO_BOOT_ENV
+ 
+ #define BOOT_TARGET_DEVICES(func) \
+-	func(MMC, mmc, 0) \
++	func(MMC, mmc, 2) \
+ 	func(USB, usb, 0) \
+ 	func(PXE, pxe, na) \
+ 	func(DHCP, dhcp, na)

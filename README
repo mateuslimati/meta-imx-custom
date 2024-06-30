@@ -1,0 +1,34 @@
+This README file contains information on the contents of the meta-imx-custom layer.
+
+Please see the corresponding sections below for details.
+
+Dependencies
+============
+
+  URI: https://github.com/Freescale/meta-freescale-3rdparty
+  branch: kirsktone
+
+Patches
+=======
+
+Please submit any patches against the meta-ti-custom layer to mateuslima.ti@gmail.com
+and cc: the maintainer:
+
+Maintainer: Mateus Lima Alves <mateuslima.ti@gmail.com>
+
+Table of Contents
+=================
+
+  I. Adding the meta-imx-custom layer to your build
+ II. Misc
+
+
+I. Adding the meta-imx-custom layer to your build
+=================================================
+
+Run 'bitbake-layers add-layer meta-imx-custom'
+
+II. Misc
+========
+
+OpenEmbedded/Yocto layer that customize the Pico-Pi IMX7D board.
