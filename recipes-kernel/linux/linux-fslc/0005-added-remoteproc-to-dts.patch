@@ -1,0 +1,84 @@
+From 2e2c20898bb81680ac9ab190d2a02470d5e64e94 Mon Sep 17 00:00:00 2001
+From: Mateus Alves <mateuslima.ti@gmail.com>
+Date: Mon, 14 Oct 2024 22:26:54 -0300
+Subject: [PATCH] added remoteproc to dts.
+
+---
+ arch/arm/boot/dts/imx7d.dtsi | 50 ++++++++++++++++++++++++++++++++++++
+ 1 file changed, 50 insertions(+)
+
+diff --git a/arch/arm/boot/dts/imx7d.dtsi b/arch/arm/boot/dts/imx7d.dtsi
+index 7ceb7c09f7ad..edc231c689e0 100644
+--- a/arch/arm/boot/dts/imx7d.dtsi
++++ b/arch/arm/boot/dts/imx7d.dtsi
+@@ -13,6 +13,24 @@ aliases {
+ 		usb2 = &usbh;
+ 	};
+ 
++	reserved-memory {
++		#address-cells = <1>;
++		#size-cells = <1>;
++		ranges;
++
++		cm4tcmcode: cm4tcmcode@0x7f8000 {
++			compatible = "shared-dma-pool";
++			reg = <0x007f8000 0x8000>;
++			no-map;
++		};
++
++		cm4sramcode: cm4sramcode@0x900000 {
++			compatible = "shared-dma-pool";
++			reg = <0x00900000 0x40000>;
++			no-map;
++		};
++	};
++
+ 	cpus {
+ 		cpu0: cpu@0 {
+ 			clock-frequency = <996000000>;
+@@ -179,6 +197,16 @@ usbotg2: usb@30b20000 {
+ 		status = "disabled";
+ 	};
+ 
++	mu: mu@30aa0000 {
++		compatible = "fsl,imx7d-mu", "fsl,imx6sx-mu";
++		reg = <0x30aa0000 0x10000>;
++		interrupts = <GIC_SPI 88 IRQ_TYPE_LEVEL_HIGH>;
++		clocks = <&clks IMX7D_MU_ROOT_CLK>;
++		clock-names = "mu";
++		status = "okay";
++		#mbox-cells = <2>;
++	};
++
+ 	usbmisc2: usbmisc@30b20200 {
+ 		#index-cells = <1>;
+ 		compatible = "fsl,imx7d-usbmisc", "fsl,imx6q-usbmisc";
+@@ -205,6 +233,28 @@ fec2: ethernet@30bf0000 {
+ 		fsl,stop-mode = <&gpr 0x10 4>;
+ 		status = "disabled";
+ 	};
++
++	rpmsg: rpmsg{
++		compatible = "fsl,imx7d-rpmsg";
++		/* up to now, the following channels are used in imx rpmsg
++		 * - tx1/rx1: messages channel.
++		 * - general interrupt1: remote proc finish re-init rpmsg stack
++		 *   when A core is partition reset.
++		 */
++		mbox-names = "tx", "rx", "rxdb";
++		mboxes = <&mu 0 1
++			  	  &mu 1 1
++			  	  &mu 3 1>;
++		status = "disabled";
++	};
++
++	imx7d-cm4 {
++        compatible = "fsl,imx7d-cm4";
++        clocks = <&clks IMX7D_ARM_M4_ROOT_CLK>;
++        fsl,auto-boot;
++        memory-region = <&cm4tcmcode>, <&cm4sramcode>;
++        syscon = <&src>;
++    };
+ };
+ 
+ &ca_funnel_in_ports {

@@ -1,0 +1,25 @@
+From d3f2b9dcfebce0e06705e49e0335c7d76e5212c5 Mon Sep 17 00:00:00 2001
+From: Mateus Alves <mateuslima.ti@gmail.com>
+Date: Wed, 2 Oct 2024 01:18:42 -0300
+Subject: [PATCH] added-memory-mapping.
+
+---
+ arch/arm/boot/dts/imx7d-pico-pi.dts | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/arch/arm/boot/dts/imx7d-pico-pi.dts b/arch/arm/boot/dts/imx7d-pico-pi.dts
+index f263e391e24c..f84c689a9a02 100644
+--- a/arch/arm/boot/dts/imx7d-pico-pi.dts
++++ b/arch/arm/boot/dts/imx7d-pico-pi.dts
+@@ -8,6 +8,11 @@ / {
+ 	model = "TechNexion PICO-IMX7D Board and PI baseboard";
+ 	compatible = "technexion,imx7d-pico-pi", "fsl,imx7d";
+ 
++  	memory {
++  		linux,usable-memory = <0x80000000 0x1ff00000>;
++  	};
++ 
++
+ 	leds {
+ 		compatible = "gpio-leds";
+ 		pinctrl-names = "default";

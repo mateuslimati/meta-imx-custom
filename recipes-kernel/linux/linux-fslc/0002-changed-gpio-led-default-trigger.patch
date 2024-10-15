@@ -1,17 +1,17 @@
-From 7cf9df53f1aa3355df373f1d6e1584a3e75260ed Mon Sep 17 00:00:00 2001
+From 0b3094256e4d54bd07cc00128de016d575ac39c8 Mon Sep 17 00:00:00 2001
 From: Mateus Alves <mateuslima.ti@gmail.com>
-Date: Mon, 6 May 2024 23:16:35 -0300
-Subject: [PATCH] changed gpio-led default-trigger.
+Date: Mon, 14 Oct 2024 21:43:50 -0300
+Subject: [PATCH] changed gpio led default trigger.
 
 ---
  arch/arm/boot/dts/imx7d-pico-pi.dts | 1 +
  1 file changed, 1 insertion(+)
 
 diff --git a/arch/arm/boot/dts/imx7d-pico-pi.dts b/arch/arm/boot/dts/imx7d-pico-pi.dts
-index f263e391e24c..d711fe23be6d 100644
+index f84c689a9a02..7c0a14001464 100644
 --- a/arch/arm/boot/dts/imx7d-pico-pi.dts
 +++ b/arch/arm/boot/dts/imx7d-pico-pi.dts
-@@ -15,6 +15,7 @@ leds {
+@@ -20,6 +20,7 @@ leds {
  
  		led {
  			label = "gpio-led";
